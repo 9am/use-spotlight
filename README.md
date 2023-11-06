@@ -4,14 +4,14 @@
         <a href="https://github.com/9am/use-spotlight/blob/main/LICENSE">
             <img alt="GitHub" src="https://img.shields.io/github/license/9am/use-spotlight?style=flat-square&color=success">
         </a>
-        <a href="https://www.npmjs.com/package/@9am/use-spotlight">
-            <img alt="npm" src="https://img.shields.io/npm/v/@9am/use-spotlight?style=flat-square&color=orange">
+        <a href="https://www.npmjs.com/package/use-spotlight">
+            <img alt="npm" src="https://img.shields.io/npm/v/use-spotlight?style=flat-square&color=orange">
         </a>
-        <a href="https://www.npmjs.com/package/@9am/use-spotlight">
-            <img alt="npm" src="https://img.shields.io/npm/dt/@9am/use-spotlight?style=flat-square&color=blue">
+        <a href="https://www.npmjs.com/package/use-spotlight">
+            <img alt="npm" src="https://img.shields.io/npm/dt/use-spotlight?style=flat-square&color=blue">
         </a>
-        <a href="https://bundlephobia.com/package/@9am/use-spotlight@latest">
-            <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/minzip/@9am/use-spotlight?style=flat-square">
+        <a href="https://bundlephobia.com/package/use-spotlight@latest">
+            <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/minzip/use-spotlight?style=flat-square">
         </a>
     </p>
 </div>
