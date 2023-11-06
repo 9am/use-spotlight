@@ -30,6 +30,14 @@
 
 ## Usage
 
+#### Install
+
+```sh
+npm install use-spotlight
+```
+
+#### JSX
+
 ```jsx
 import { stage, actor, style } from 'use-spotlight'
 
