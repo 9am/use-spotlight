@@ -1,0 +1,63 @@
+{
+  "name": "use-spotlight",
+  "version": "1.0.0",
+  "description": "A react hook that generates 'spotlight' for active target.",
+  "keywords": [
+    "react",
+    "hooks",
+    "spotlight",
+    "highlight",
+    "active",
+    "target"
+  ],
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.es.js",
+  "main": "./dist/index.umd.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "default": "./dist/index.es.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@9am/tsconfig": "^1.0.0",
+    "@types/react": "^18.2.35",
+    "@vitejs/plugin-react": "^4.1.1",
+    "prettier": "^2.8.8",
+    "random-words": "^2.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^5.1.6",
+    "vite": "^4.3.9",
+    "vite-plugin-banner": "^0.7.1",
+    "vite-plugin-dts": "^3.0.3"
+  },
+  "peerDependencies": {
+    "react": ">=16.9.0"
+  },
+  "author": {
+    "name": "9am",
+    "email": "tech.9am@gmail.com",
+    "url": "https://9am.github.io/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/9am/use-spotlight"
+  },
+  "homepage": "https://github.com/9am/use-spotlight#readme",
+  "private": false,
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT"
+}
