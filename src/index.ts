@@ -1,45 +1,71 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Size, Rect } from './types';
 
-const getStyle = ([x, y, w, h]: Size) => ({
-    content: '',
-    display: 'block',
-    position: 'absolute',
-    top: '0',
-    left: '0',
-    width: `${w}px`,
-    height: `${h}px`,
-    transform: `translate(${x}px, ${y}px)`,
-    transitionProperty: 'transform, width, height',
-    transitionDuration: '200ms',
-    background: 'rgba(255 0 0 / 0.1)', // TODO
-    pointerEvents: 'none',
-});
-
 const initialSize: Size = [0, 0, 0, 0];
 const initialRect: Rect = { x: 0, y: 0, width: 0, height: 0 };
 
+const getStyleValueLength = (node: HTMLElement, attr: string): number => {
+    try {
+        const val = getComputedStyle(node, null)?.getPropertyValue(attr) ?? '';
+        return +val.replace('px', '');
+    } catch (error) {
+        return 0;
+    }
+};
+
+const getScrollRect = (node: HTMLElement): Rect => {
+    const rect = node?.getBoundingClientRect() ?? initialRect;
+    return {
+        ...rect,
+        x:
+            rect.x -
+            (node?.scrollLeft ?? 0) +
+            getStyleValueLength(node, 'border-left-width'),
+        y:
+            rect.y -
+            (node?.scrollTop ?? 0) +
+            getStyleValueLength(node, 'border-top-width'),
+    };
+};
+
+const getStyle = ([x, y, w, h]: Size) => ({
+    '--spotlight-x': `${x}px`,
+    '--spotlight-y': `${y}px`,
+    '--spotlight-w': `${w}px`,
+    '--spotlight-h': `${h}px`,
+    '--spotlight-duration': '200ms',
+    '--spotlight-bg': 'rgba(255, 0, 0, 0.1)',
+    content: '""',
+    display: 'block',
+    boxSizing: 'border-box',
+    position: 'absolute',
+    top: '0px',
+    left: '0px',
+    width: 'var(--spotlight-w)',
+    height: 'var(--spotlight-h)',
+    transform: `translate(var(--spotlight-x), var(--spotlight-y))`,
+    transitionProperty: 'transform, width, height',
+    transitionDuration: 'var(--spotlight-duration)',
+    background: 'var(--spotlight-bg)',
+    pointerEvents: 'none',
+});
+
 export const useSpotlight = (options = {}) => {
     const [size, setSize] = useState<Size>(initialSize);
-    const [containerRect, setContainerRect] = useState<Rect>(initialRect);
-    const [activeRect, setActiveRect] = useState<Rect>(initialRect);
+    const [stageRect, setContainerRect] = useState<Rect>(initialRect);
+    const [actorRect, setActiveRect] = useState<Rect>(initialRect);
 
-    let cRef = useRef<HTMLElement | null>(null);
+    let sRef = useRef<HTMLElement | null>(null);
     let aRef = useRef<HTMLElement | null>(null);
 
-    const containerRefHandler = useCallback(
+    const stageRefHandler = useCallback(
         (node: HTMLElement) => {
-            cRef.current = node;
-            const rect = node?.getBoundingClientRect() ?? initialRect;
-            setContainerRect({
-                ...rect,
-                x: rect.x - node.scrollLeft,
-                y: rect.y - node.scrollTop,
-            });
+            sRef.current = node;
+            setContainerRect(getScrollRect(node));
         },
         [setContainerRect]
     );
-    const activeRefHandler = useCallback(
+    const actorRefHandler = useCallback(
         (node: HTMLElement) => {
             aRef.current = node;
             setActiveRect(node?.getBoundingClientRect() ?? initialRect);
@@ -49,48 +75,43 @@ export const useSpotlight = (options = {}) => {
 
     useEffect(() => {
         setSize([
-            activeRect.x - containerRect.x,
-            activeRect.y - containerRect.y,
-            activeRect.width,
-            activeRect.height,
+            actorRect.x - stageRect.x,
+            actorRect.y - stageRect.y,
+            actorRect.width,
+            actorRect.height,
         ]);
-    }, [containerRect, activeRect, setSize]);
+    }, [stageRect, actorRect, setSize]);
 
     useEffect(() => {
-        const cNode = cRef.current;
+        const sNode = sRef.current;
         const aNode = aRef.current;
-        if (!cNode || !aNode) {
+        if (!sNode || !aNode) {
             return () => setSize(initialSize);
         }
         let resizeObserver: ResizeObserver | null = null;
         // TODO throttle
         const handleResize = () => {
-            const test = cNode.getBoundingClientRect();
-            const cSize = {
-                ...test,
-                x: test.x - cNode.scrollLeft,
-                y: test.y - cNode.scrollTop,
-            };
+            const sSize = getScrollRect(sNode);
             const aSize = aNode.getBoundingClientRect();
-            setSize([aSize.x - cSize.x, aSize.y - cSize.y, aSize.width, aSize.height]);
+            setSize([aSize.x - sSize.x, aSize.y - sSize.y, aSize.width, aSize.height]);
         };
         if (typeof ResizeObserver !== 'undefined') {
             resizeObserver = new ResizeObserver(handleResize);
-            resizeObserver.observe(cNode);
+            resizeObserver.observe(sNode);
             resizeObserver.observe(aNode);
         }
         handleResize();
-        const prev = cNode.style.position;
-        cNode.style.position = 'relative';
+        const prev = sNode.style.position;
+        sNode.style.position = 'relative';
         return () => {
-            cNode.style.position = prev;
+            sNode.style.position = prev;
             resizeObserver?.disconnect();
         };
-    }, [containerRect, activeRect, setSize]);
+    }, [stageRect, actorRect, setSize]);
 
     return {
-        stage: containerRefHandler,
-        actor: activeRefHandler,
+        stage: stageRefHandler,
+        actor: actorRefHandler,
         style: getStyle(size),
         size,
     };

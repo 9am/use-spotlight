@@ -16,18 +16,6 @@
     </p>
 </div>
 
-## Features
-
-- TBD
-
-## Demo
-
-- TBD
-
-|Description|Live demo|
-|:---------:|:-------:|
-
-
 ## Usage
 
 #### Install
@@ -41,8 +29,9 @@ npm install use-spotlight
 ```jsx
 import { stage, actor, style } from 'use-spotlight'
 
-const List = () => {
+() => {
     const [active, setActive] = useState(-1);
+    // init hook
     const { stage, actor, style } = useSpotlight();
     return (
         // set ref for 'stage'
@@ -58,7 +47,7 @@ const List = () => {
                 </li>
             ))}
             // set 'style' to the light
-            <div style={style} />
+            <i style={style} />
         </ul>
     );
 };

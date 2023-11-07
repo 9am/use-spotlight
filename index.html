@@ -3,47 +3,16 @@
 <head>
     <meta charset="utf-8">
     <title>use-spotlight</title>
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-        ul {
-            list-style: none;
-            display: inline-grid;
-            padding: 10px;
-            border: 1px solid grey;
-            border-radius: 4px;
-            gap: 10px;
-            overflow: auto;
-            color: grey;
-        }
-        li {
-            cursor: pointer;
-        }
-        li:hover {
-            color: black;
-        }
-        span {
-            padding: 4px;
-        }
-        .active {
-            filter: drop-shadow(1px 0 0px grey);
-        }
-
-        .horizontal {
-            grid-auto-flow: column;
-            resize: horizontal;
-        }
-        .vertical {
-            grid-auto-flow: row;
-            resize: vertical;
-        }
-    </style>
 </head>
 <body>
     <div id="app"></div>
-    <script type="module" src="index.tsx"></script>
+    <script type="module">
+        import { createElement } from 'react';
+        import { createRoot } from 'react-dom/client';
+        import { App } from './demo/index';
+
+        const root = createRoot(document.querySelector('#app'));
+        root.render(createElement(App));
+    </script>
 </body>
 </html>

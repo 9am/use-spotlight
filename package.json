@@ -1,6 +1,6 @@
 {
   "name": "use-spotlight",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A react hook that generates 'spotlight' for active target.",
   "keywords": [
     "react",
@@ -26,12 +26,17 @@
   },
   "scripts": {
     "dev": "vite",
+    "cypress:open": "cypress open",
     "build": "vite build"
   },
   "devDependencies": {
     "@9am/tsconfig": "^1.0.0",
+    "@types/lodash.pick": "^4.4.8",
     "@types/react": "^18.2.35",
     "@vitejs/plugin-react": "^4.1.1",
+    "cypress": "^13.4.0",
+    "cypress-promise": "^1.1.0",
+    "lodash.pick": "^4.4.0",
     "prettier": "^2.8.8",
     "random-words": "^2.0.0",
     "react": "^18.2.0",

@@ -1,13 +1,16 @@
 {
   "extends": "@9am/tsconfig",
   "compilerOptions": {
-    "allowJs": true,
     "types": [
-      "vite/client"
+      "vite/client",
+      "cypress"
     ],
     "noPropertyAccessFromIndexSignature": false
   },
   "include": [
-    "src"
+    "src",
+    "cypress",
+    "demo",
+    "test"
   ]
 }
