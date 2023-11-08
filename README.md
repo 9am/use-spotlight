@@ -1,5 +1,6 @@
-<div align="center"> <h1>use-spotlight</h1>
-	<p>A react hook that generates 'spotlight' for active target. 🎙</p>
+<div align="center">
+    <h1>use-spotlight</h1>
+	<p>A react hook that generates animated 'spotlight' for active target. 🎙</p>
     <p>
         <a href="https://github.com/9am/use-spotlight/blob/main/LICENSE">
             <img alt="GitHub" src="https://img.shields.io/github/license/9am/use-spotlight?style=flat-square&color=success">

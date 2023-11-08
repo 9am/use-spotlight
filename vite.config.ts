@@ -34,6 +34,9 @@ export default defineConfig({
             external: ['react'],
             output: {
                 exports: 'named',
+                globals: {
+                    react: 'React',
+                },
             },
         },
     },

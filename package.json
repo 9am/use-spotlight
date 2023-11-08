@@ -1,6 +1,6 @@
 {
   "name": "use-spotlight",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A react hook that generates 'spotlight' for active target.",
   "keywords": [
     "react",
@@ -20,13 +20,13 @@
   "exports": {
     ".": {
       "import": "./dist/index.es.js",
-      "require": "./dist/index.umd.js",
-      "default": "./dist/index.es.js"
+      "require": "./dist/index.umd.js"
     }
   },
   "scripts": {
     "dev": "vite",
-    "cypress:open": "cypress open",
+    "test:open": "cypress open",
+    "test": "cypress run --component",
     "build": "vite build"
   },
   "devDependencies": {

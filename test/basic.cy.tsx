@@ -3,7 +3,7 @@ import promisify from 'cypress-promise';
 import pick from 'lodash.pick';
 import { List } from '../demo';
 
-describe('common', () => {
+describe('basic', () => {
     it("doesn't break render", () => {
         cy.mount(<List />);
     });

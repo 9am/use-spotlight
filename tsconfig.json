@@ -8,9 +8,6 @@
     "noPropertyAccessFromIndexSignature": false
   },
   "include": [
-    "src",
-    "cypress",
-    "demo",
-    "test"
+    "src"
   ]
 }
