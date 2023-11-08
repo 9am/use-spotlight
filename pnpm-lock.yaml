@@ -6,7 +6,6 @@ specifiers:
   '@types/react': ^18.2.35
   '@vitejs/plugin-react': ^4.1.1
   cypress: ^13.4.0
-  cypress-promise: ^1.1.0
   lodash.pick: ^4.4.0
   prettier: ^2.8.8
   random-words: ^2.0.0
@@ -23,7 +22,6 @@ devDependencies:
   '@types/react': 18.2.35
   '@vitejs/plugin-react': 4.1.1_vite@4.5.0
   cypress: 13.4.0
-  cypress-promise: 1.1.0
   lodash.pick: 4.4.0
   prettier: 2.8.8
   random-words: 2.0.0
@@ -1090,10 +1088,6 @@ packages:
 
   /csstype/3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
-    dev: true
-
-  /cypress-promise/1.1.0:
-    resolution: {integrity: sha512-DhIf5PJ/a0iY+Yii6n7Rbwq+9TJxU4pupXYzf9mZd8nPG0AzQrj9i+pqINv4xbI2EV1p+PKW3maCkR7oPG4GrA==}
     dev: true
 
   /cypress/13.4.0:

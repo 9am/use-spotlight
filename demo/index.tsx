@@ -3,31 +3,64 @@ import { useSpotlight } from '../src';
 import { generate } from 'random-words';
 import './index.css';
 
-const config = Array.from({ length: 10 }).map(() => ({
-    value: generate({ minLength: 2 }),
-}));
+const getItem = () => {
+    const word = generate({ minLength: 2 });
+    return {
+        label: word,
+        value: word,
+    };
+};
+
+const config = Array.from({ length: 10 }).map(() => getItem());
 
 export const List = ({ defaultActive = -1, ...props }) => {
+    const [list, setList] = useState(config);
     const [active, setActive] = useState(defaultActive);
     const { stage, actor, style } = useSpotlight();
     return (
-        <ul {...props} ref={stage} data-cy="stage">
-            {config.map(({ value }) => (
-                <li
-                    key={value}
-                    className={value === active ? 'active' : ''}
-                    onClick={() => setActive(value)}
-                >
-                    <span
-                        ref={value === active ? actor : null}
-                        data-cy={value === active ? 'actor' : ''}
+        <>
+            <ul {...props} ref={stage} data-cy="stage">
+                {list.map(({ label, value }) => (
+                    <li
+                        key={value}
+                        className={value === active ? 'active' : ''}
+                        onClick={() => setActive(value)}
                     >
-                        {value}
-                    </span>
-                </li>
-            ))}
-            <i style={style} data-cy="light" />
-        </ul>
+                        <span
+                            ref={value === active ? actor : null}
+                            data-cy={value === active ? 'actor' : ''}
+                        >
+                            {label}
+                        </span>
+                    </li>
+                ))}
+                <i style={style} data-cy="light" />
+            </ul>
+            <button data-cy="reset" onClick={() => setActive(defaultActive)}>
+                reset active
+            </button>
+            <button
+                data-cy="add"
+                onClick={() => setList((state) => [getItem(), ...state])}
+            >
+                add child
+            </button>
+            <button data-cy="remove" onClick={() => setList((state) => state.slice(1))}>
+                remove child
+            </button>
+            <button
+                data-cy="update"
+                onClick={() =>
+                    setList((state) =>
+                        state.map((item) =>
+                            active === item.value ? { ...item, label: 'mutation' } : item
+                        )
+                    )
+                }
+            >
+                update
+            </button>
+        </>
     );
 };
 
