@@ -50,6 +50,9 @@ const getStyle = ([x, y, w, h]: Size) => ({
     transitionDuration: 'var(--spotlight-duration)',
     background: 'var(--spotlight-bg)',
     pointerEvents: 'none',
+    zIndex: '999',
+    padding: '0px',
+    margin: '0px',
 });
 
 export const useSpotlight = (options?: SpotlightOptions): Spotlight => {
@@ -120,6 +123,6 @@ export const useSpotlight = (options?: SpotlightOptions): Spotlight => {
     };
 };
 
-export type { Size, Rect, SpotlightOptions } from './types';
+export type { Size, Rect, SpotlightOptions, Spotlight } from './types';
 
 export default null;

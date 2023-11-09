@@ -1,6 +1,6 @@
 {
   "name": "use-spotlight",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A react hook that generates 'spotlight' for active target.",
   "keywords": [
     "react",
@@ -46,6 +46,9 @@
     "vite-plugin-banner": "^0.7.1",
     "vite-plugin-dts": "^3.0.3"
   },
+  "dependencies": {
+    "lodash.throttle": "^4.1.1"
+  },
   "peerDependencies": {
     "react": ">=16.9.0"
   },
@@ -64,8 +67,5 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT",
-  "dependencies": {
-    "lodash.throttle": "^4.1.1"
-  }
+  "license": "MIT"
 }

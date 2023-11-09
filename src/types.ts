@@ -1,3 +1,5 @@
+import type { RefCallback } from 'react';
+
 export type Size = [number, number, number, number];
 
 export type Rect = {
@@ -17,11 +19,9 @@ export const defaultOptions: Required<SpotlightOptions> = {
     enableBorderEdge: false,
 };
 
-type RefCallback = (node: HTMLElement | null) => void;
-
 export type Spotlight = {
-    stage: RefCallback;
-    actor: RefCallback;
+    stage: RefCallback<any>;
+    actor: RefCallback<any>;
     style: { [key: string]: string };
     size: Size;
 };
