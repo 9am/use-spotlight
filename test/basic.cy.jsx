@@ -18,3 +18,23 @@ describe(
     'vertical with scroll',
     getCases(() => <List className="vertical" style={{ height: '200px' }} />)
 );
+describe(
+    'horizontal with stage border',
+    getCases(() => (
+        <List
+            className="horizontal"
+            style={{ border: '4px solid green' }}
+            spotlightOptions={{ enableBorderEdge: true }}
+        />
+    ))
+);
+describe(
+    'vertical with scroll',
+    getCases(() => (
+        <List
+            className="vertical"
+            style={{ border: '4px solid green' }}
+            spotlightOptions={{ enableBorderEdge: true }}
+        />
+    ))
+);

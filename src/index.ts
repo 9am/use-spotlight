@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { Size, Rect } from './types';
+import throttle from 'lodash.throttle';
+import { defaultOptions } from './types';
+import type { Size, Rect, SpotlightOptions, Spotlight } from './types';
 
 const initialSize: Size = [0, 0, 0, 0];
 const initialRect: Rect = { x: 0, y: 0, width: 0, height: 0 };
@@ -13,18 +15,18 @@ const getStyleValueLength = (node: HTMLElement, attr: string): number => {
     }
 };
 
-const getScrollRect = (node: HTMLElement): Rect => {
+const getScrollRect = (node: HTMLElement, enableBorderEdge: boolean): Rect => {
     const rect = node?.getBoundingClientRect() ?? initialRect;
+    const borderLeft = enableBorderEdge
+        ? getStyleValueLength(node, 'border-left-width')
+        : 0;
+    const borderTop = enableBorderEdge
+        ? getStyleValueLength(node, 'border-top-width')
+        : 0;
     return {
         ...rect,
-        x:
-            rect.x -
-            (node?.scrollLeft ?? 0) +
-            getStyleValueLength(node, 'border-left-width'),
-        y:
-            rect.y -
-            (node?.scrollTop ?? 0) +
-            getStyleValueLength(node, 'border-top-width'),
+        x: rect.x - (node?.scrollLeft ?? 0) + borderLeft,
+        y: rect.y - (node?.scrollTop ?? 0) + borderTop,
     };
 };
 
@@ -50,30 +52,32 @@ const getStyle = ([x, y, w, h]: Size) => ({
     pointerEvents: 'none',
 });
 
-export const useSpotlight = (options = {}) => {
+export const useSpotlight = (options?: SpotlightOptions): Spotlight => {
+    const { throttleWait, enableBorderEdge } = { ...defaultOptions, ...options };
     const [size, setSize] = useState<Size>(initialSize);
-    const [stageRect, setContainerRect] = useState<Rect>(initialRect);
-    const [actorRect, setActiveRect] = useState<Rect>(initialRect);
+    const [stageRect, setStageRect] = useState<Rect>(initialRect);
+    const [actorRect, setActorRect] = useState<Rect>(initialRect);
 
     let sRef = useRef<HTMLElement | null>(null);
     let aRef = useRef<HTMLElement | null>(null);
 
-    const stageRefHandler = useCallback(
-        (node: HTMLElement) => {
+    const stageRefCallback = useCallback(
+        (node: HTMLElement | null) => {
             sRef.current = node;
-            setContainerRect(getScrollRect(node));
+            setStageRect(node ? getScrollRect(node, enableBorderEdge) : initialRect);
         },
-        [setContainerRect]
+        [setStageRect, enableBorderEdge]
     );
-    const actorRefHandler = useCallback(
-        (node: HTMLElement) => {
+    const actorRefCallback = useCallback(
+        (node: HTMLElement | null) => {
             aRef.current = node;
-            setActiveRect(node?.getBoundingClientRect() ?? initialRect);
+            setActorRect(node?.getBoundingClientRect() ?? initialRect);
         },
-        [setActiveRect]
+        [setActorRect]
     );
 
     useEffect(() => {
+        // 'stage' or 'actor' ref updated
         setSize([
             actorRect.x - stageRect.x,
             actorRect.y - stageRect.y,
@@ -89,34 +93,33 @@ export const useSpotlight = (options = {}) => {
             return () => setSize(initialSize);
         }
         let resizeObserver: ResizeObserver | null = null;
-        // TODO throttle
-        const handleResize = () => {
-            const sSize = getScrollRect(sNode);
+        const handleResize = throttle(() => {
+            // 'stage' or 'actor' size updated
+            const sSize = getScrollRect(sNode, enableBorderEdge);
             const aSize = aNode.getBoundingClientRect();
             setSize([aSize.x - sSize.x, aSize.y - sSize.y, aSize.width, aSize.height]);
-        };
+        }, throttleWait);
         if (typeof ResizeObserver !== 'undefined') {
             resizeObserver = new ResizeObserver(handleResize);
             resizeObserver.observe(sNode);
             resizeObserver.observe(aNode);
         }
-        handleResize();
         const prev = sNode.style.position;
         sNode.style.position = 'relative';
         return () => {
             sNode.style.position = prev;
             resizeObserver?.disconnect();
         };
-    }, [stageRect, actorRect, setSize]);
+    }, [stageRect, actorRect, setSize, throttleWait, enableBorderEdge]);
 
     return {
-        stage: stageRefHandler,
-        actor: actorRefHandler,
+        stage: stageRefCallback,
+        actor: actorRefCallback,
         style: getStyle(size),
         size,
     };
 };
 
-export type { Size, Rect } from './types';
+export type { Size, Rect, SpotlightOptions } from './types';
 
 export default null;

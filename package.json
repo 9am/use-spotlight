@@ -1,6 +1,6 @@
 {
   "name": "use-spotlight",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A react hook that generates 'spotlight' for active target.",
   "keywords": [
     "react",
@@ -32,6 +32,7 @@
   "devDependencies": {
     "@9am/tsconfig": "^1.0.0",
     "@types/lodash.pick": "^4.4.8",
+    "@types/lodash.throttle": "^4.1.9",
     "@types/react": "^18.2.35",
     "@vitejs/plugin-react": "^4.1.1",
     "cypress": "^13.4.0",
@@ -63,5 +64,8 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "lodash.throttle": "^4.1.1"
+  }
 }

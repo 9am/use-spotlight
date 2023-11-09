@@ -4,7 +4,7 @@ import { generate } from 'random-words';
 import './index.css';
 
 const getItem = () => {
-    const word = generate({ minLength: 2 });
+    const word = generate({ minLength: 2 }).toString();
     return {
         label: word,
         value: word,
@@ -13,16 +13,16 @@ const getItem = () => {
 
 const config = Array.from({ length: 10 }).map(() => getItem());
 
-export const List = ({ defaultActive = -1, ...props }) => {
+export const List = ({ defaultActive = '', spotlightOptions = undefined, ...props }) => {
     const [list, setList] = useState(config);
     const [active, setActive] = useState(defaultActive);
-    const { stage, actor, style } = useSpotlight();
+    const { stage, actor, style } = useSpotlight(spotlightOptions);
     return (
         <>
             <ul {...props} ref={stage} data-cy="stage">
-                {list.map(({ label, value }) => (
+                {list.map(({ label, value }, i) => (
                     <li
-                        key={value}
+                        key={`${value}-${i}`}
                         className={value === active ? 'active' : ''}
                         onClick={() => setActive(value)}
                     >

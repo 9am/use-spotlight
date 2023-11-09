@@ -1,4 +1,5 @@
 <div align="center">
+    <img src="https://raw.githubusercontent.com/9am/use-spotlight/main/logo.svg" alt="use-spotlight-logo" width="140" height="140" />
     <h1>use-spotlight</h1>
 	<p>A react hook that generates animated 'spotlight' for active target. 🎙</p>
     <p>
@@ -13,6 +14,9 @@
         </a>
         <a href="https://bundlephobia.com/package/use-spotlight@latest">
             <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/minzip/use-spotlight?style=flat-square">
+        </a>
+        <a href="https://github.com/9am/use-spotlight/actions/workflows/test.yml">
+            <img alt="test" src="https://github.com/9am/use-spotlight/actions/workflows/test.yml/badge.svg">
         </a>
     </p>
 </div>

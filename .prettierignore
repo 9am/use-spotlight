@@ -9,3 +9,4 @@
 *.md
 .*ignore
 .DS_Store
+coverage

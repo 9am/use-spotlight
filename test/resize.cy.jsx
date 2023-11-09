@@ -1,16 +1,14 @@
 import React from 'react';
 import pick from 'lodash.pick';
 import { List } from '../demo';
-import { isSameSize } from './common';
-
-const DELAY = 100;
+import { DELAY, isSameSize } from './common';
 
 describe('resize', () => {
     it('size right when stage resize', () => {
         cy.mount(<List />);
         cy.get('[data-cy=light]').then((light) => {
             // disable animation
-            light[0].style.setProperty('--spotlight-duration', '0');
+            light[0].style.setProperty('--spotlight-duration', '0s');
             // trigger light
             cy.get('span:last').click();
             // resize
@@ -32,7 +30,7 @@ describe('resize', () => {
         cy.mount(<List />);
         cy.get('[data-cy=light]').then((light) => {
             // disable animation
-            light[0].style.setProperty('--spotlight-duration', '0');
+            light[0].style.setProperty('--spotlight-duration', '0s');
             // trigger light
             cy.get('span:last').click();
             // resize
@@ -51,7 +49,7 @@ describe('resize', () => {
         cy.mount(<List />);
         cy.get('[data-cy=light]').then((light) => {
             // disable animation
-            light[0].style.setProperty('--spotlight-duration', '0');
+            light[0].style.setProperty('--spotlight-duration', '0s');
             // trigger light
             cy.get('span:last').click();
             // resize

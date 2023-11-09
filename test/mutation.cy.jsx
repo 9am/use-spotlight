@@ -8,20 +8,17 @@ describe('mutation', () => {
         cy.mount(<List />);
         cy.get('[data-cy=light]').then((light) => {
             // disable animation
-            light[0].style.setProperty('--spotlight-duration', '0');
+            light[0].style.setProperty('--spotlight-duration', '0s');
             // trigger light
             cy.get('span:last').click();
             // mutation
-            cy.get('[data-cy=stage]').then((stage) => {
-                cy.get('[data-cy=add]').click();
-                cy.get('[data-cy=add]').click();
-                cy.get('[data-cy=actor]').then((actor) => {
-                    isSameSize(actor, light);
-                });
-                cy.get('[data-cy=remove]').click();
-                cy.get('[data-cy=actor]').then((actor) => {
-                    isSameSize(actor, light);
-                });
+            cy.get('[data-cy=add]').click();
+            cy.get('[data-cy=actor]').then((actor) => {
+                isSameSize(actor, light);
+            });
+            cy.get('[data-cy=remove]').click();
+            cy.get('[data-cy=actor]').then((actor) => {
+                isSameSize(actor, light);
             });
         });
     });
@@ -29,7 +26,7 @@ describe('mutation', () => {
     //     cy.mount(<List />);
     //     cy.get('[data-cy=light]').then((light) => {
     //         // disable animation
-    //         light[0].style.setProperty('--spotlight-duration', '0');
+    //         light[0].style.setProperty('--spotlight-duration', '0s');
     //         // trigger light
     //         cy.get('span:last').click();
     //         // mutation

@@ -3,11 +3,14 @@
     margin: 0;
     box-sizing: border-box;
 }
+body {
+    padding: 10px;
+}
 ul {
     list-style: none;
     display: inline-grid;
     padding: 10px;
-    border: 2px solid grey;
+    outline: 2px solid grey;
     border-radius: 4px;
     gap: 10px;
     overflow: auto;

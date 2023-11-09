@@ -2,11 +2,23 @@ import React from 'react';
 import { List } from '../demo';
 import pick from 'lodash.pick';
 
-export const isSameSize = (actor, light) => {
+export const DELAY = 300;
+
+const getSize = (actor, light) => {
     const attr = ['x', 'y', 'width', 'height'];
     const rectActor = pick(actor[0].getBoundingClientRect(), attr);
     const rectLight = pick(light[0].getBoundingClientRect(), attr);
+    return { rectActor, rectLight };
+};
+
+export const isSameSize = (actor, light) => {
+    const { rectLight, rectActor } = getSize(actor, light);
     expect(JSON.stringify(rectLight)).to.equal(JSON.stringify(rectActor));
+};
+
+export const isNotSameSize = (actor, light) => {
+    const { rectLight, rectActor } = getSize(actor, light);
+    expect(JSON.stringify(rectLight)).not.to.equal(JSON.stringify(rectActor));
 };
 
 export const getCases =

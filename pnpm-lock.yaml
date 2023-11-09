@@ -3,10 +3,12 @@ lockfileVersion: 5.4
 specifiers:
   '@9am/tsconfig': ^1.0.0
   '@types/lodash.pick': ^4.4.8
+  '@types/lodash.throttle': ^4.1.9
   '@types/react': ^18.2.35
   '@vitejs/plugin-react': ^4.1.1
   cypress: ^13.4.0
   lodash.pick: ^4.4.0
+  lodash.throttle: ^4.1.1
   prettier: ^2.8.8
   random-words: ^2.0.0
   react: ^18.2.0
@@ -16,9 +18,13 @@ specifiers:
   vite-plugin-banner: ^0.7.1
   vite-plugin-dts: ^3.0.3
 
+dependencies:
+  lodash.throttle: 4.1.1
+
 devDependencies:
   '@9am/tsconfig': 1.0.0
   '@types/lodash.pick': 4.4.8
+  '@types/lodash.throttle': 4.1.9
   '@types/react': 18.2.35
   '@vitejs/plugin-react': 4.1.1_vite@4.5.0
   cypress: 13.4.0
@@ -659,6 +665,12 @@ packages:
 
   /@types/lodash.pick/4.4.8:
     resolution: {integrity: sha512-jQUDDkyIROOnAvtuqhvOb/Ws1plf+Wr1f0jKOoctJJZFreu/Bbc5Fnjg7dIrdt9ZxRDiItuVFGP84z1xHAHS4w==}
+    dependencies:
+      '@types/lodash': 4.14.200
+    dev: true
+
+  /@types/lodash.throttle/4.1.9:
+    resolution: {integrity: sha512-PCPVfpfueguWZQB7pJQK890F2scYKoDUL3iM522AptHWn7d5NQmeS/LTEHIcLr5PaTzl3dK2Z0xSUHHTHwaL5g==}
     dependencies:
       '@types/lodash': 4.14.200
     dev: true
@@ -1703,6 +1715,10 @@ packages:
   /lodash.pick/4.4.0:
     resolution: {integrity: sha512-hXt6Ul/5yWjfklSGvLQl8vM//l3FtyHZeuelpzK6mm99pNvN9yTDruNZPEJZD1oWrqo+izBmB7oUfWgcCX7s4Q==}
     dev: true
+
+  /lodash.throttle/4.1.1:
+    resolution: {integrity: sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==}
+    dev: false
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}

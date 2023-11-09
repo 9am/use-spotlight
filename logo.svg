@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
+  <defs>
+    <circle id="l" cx="0" cy="0" r=".1" />
+    <filter id="blur">
+      <feGaussianBlur stdDeviation=".01" />
+    </filter>
+  </defs>
+  <rect rx="1.6" ry="1.6" width="10" height="10" fill="black" />
+  <g fill="rgba(255,255,255,.3)" filter="url(#blur)">
+    <path d="M 1,3 L 2,8 L 7.9,7.7 Z" />
+    <path d="M 5,1 L 2,8 L 8,8 Z" />
+    <path d="M 9,2 L 2.1,7.7 L 8,8 Z" />
+    <use href="#l" transform="translate(1 3)" />
+    <use href="#l" transform="translate(5 1)" />
+    <use href="#l" transform="translate(9 2)" />
+    <ellipse cx="5" cy="8" rx="3" ry="1" fill="white" />
+  </g>
+</svg>
