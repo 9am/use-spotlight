@@ -15,14 +15,12 @@ const getStyleValueLength = (node: HTMLElement, attr: string): number => {
     }
 };
 
-const getScrollRect = (node: HTMLElement, enableBorderEdge: boolean): Rect => {
+const getScrollRect = (node: HTMLElement, stageBorderEdge: boolean): Rect => {
     const rect = node?.getBoundingClientRect() ?? initialRect;
-    const borderLeft = enableBorderEdge
+    const borderLeft = stageBorderEdge
         ? getStyleValueLength(node, 'border-left-width')
         : 0;
-    const borderTop = enableBorderEdge
-        ? getStyleValueLength(node, 'border-top-width')
-        : 0;
+    const borderTop = stageBorderEdge ? getStyleValueLength(node, 'border-top-width') : 0;
     return {
         ...rect,
         x: rect.x - (node?.scrollLeft ?? 0) + borderLeft,
@@ -56,7 +54,10 @@ const getStyle = ([x, y, w, h]: Size) => ({
 });
 
 export const useSpotlight = (options?: SpotlightOptions): Spotlight => {
-    const { throttleWait, enableBorderEdge } = { ...defaultOptions, ...options };
+    const { throttleWait, stageBorderEdge, stageMutation } = {
+        ...defaultOptions,
+        ...options,
+    };
     const [size, setSize] = useState<Size>(initialSize);
     const [stageRect, setStageRect] = useState<Rect>(initialRect);
     const [actorRect, setActorRect] = useState<Rect>(initialRect);
@@ -67,9 +68,9 @@ export const useSpotlight = (options?: SpotlightOptions): Spotlight => {
     const stageRefCallback = useCallback(
         (node: HTMLElement | null) => {
             sRef.current = node;
-            setStageRect(node ? getScrollRect(node, enableBorderEdge) : initialRect);
+            setStageRect(node ? getScrollRect(node, stageBorderEdge) : initialRect);
         },
-        [setStageRect, enableBorderEdge]
+        [setStageRect, stageBorderEdge]
     );
     const actorRefCallback = useCallback(
         (node: HTMLElement | null) => {
@@ -96,24 +97,44 @@ export const useSpotlight = (options?: SpotlightOptions): Spotlight => {
             return () => setSize(initialSize);
         }
         let resizeObserver: ResizeObserver | null = null;
+        let mutationObserver: MutationObserver | null = null;
         const handleResize = throttle(() => {
             // 'stage' or 'actor' size updated
-            const sSize = getScrollRect(sNode, enableBorderEdge);
+            const sSize = getScrollRect(sNode, stageBorderEdge);
             const aSize = aNode.getBoundingClientRect();
             setSize([aSize.x - sSize.x, aSize.y - sSize.y, aSize.width, aSize.height]);
         }, throttleWait);
+        const handleMutation = () => {
+            // 'stage' or 'actor' mutation
+            handleResize();
+        };
         if (typeof ResizeObserver !== 'undefined') {
             resizeObserver = new ResizeObserver(handleResize);
             resizeObserver.observe(sNode);
             resizeObserver.observe(aNode);
+        }
+        if (typeof MutationObserver !== 'undefined') {
+            mutationObserver = new MutationObserver(handleMutation);
+            if (stageMutation) {
+                mutationObserver.observe(sNode, {
+                    subtree: true,
+                    childList: true,
+                });
+            }
+            mutationObserver.observe(aNode, {
+                subtree: true,
+                childList: true,
+                characterData: true,
+            });
         }
         const prev = sNode.style.position;
         sNode.style.position = 'relative';
         return () => {
             sNode.style.position = prev;
             resizeObserver?.disconnect();
+            mutationObserver?.disconnect();
         };
-    }, [stageRect, actorRect, setSize, throttleWait, enableBorderEdge]);
+    }, [stageRect, actorRect, setSize, throttleWait, stageBorderEdge, stageMutation]);
 
     return {
         stage: stageRefCallback,

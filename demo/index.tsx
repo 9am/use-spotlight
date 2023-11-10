@@ -7,10 +7,9 @@ const getItem = () => {
     const word = generate({ minLength: 2 }).toString();
     return {
         label: word,
-        value: word,
+        value: `${self.crypto.randomUUID()}-${word}`,
     };
 };
-
 const config = Array.from({ length: 10 }).map(() => getItem());
 
 export const List = ({ defaultActive = '', spotlightOptions = undefined, ...props }) => {
@@ -22,7 +21,7 @@ export const List = ({ defaultActive = '', spotlightOptions = undefined, ...prop
             <ul {...props} ref={stage} data-cy="stage">
                 {list.map(({ label, value }, i) => (
                     <li
-                        key={`${value}-${i}`}
+                        key={value}
                         className={value === active ? 'active' : ''}
                         onClick={() => setActive(value)}
                     >
@@ -53,7 +52,9 @@ export const List = ({ defaultActive = '', spotlightOptions = undefined, ...prop
                 onClick={() =>
                     setList((state) =>
                         state.map((item) =>
-                            active === item.value ? { ...item, label: 'mutation' } : item
+                            active === item.value
+                                ? { ...item, label: Math.random() }
+                                : item
                         )
                     )
                 }

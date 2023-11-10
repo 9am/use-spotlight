@@ -22,18 +22,18 @@ describe('mutation', () => {
             });
         });
     });
-    // it('size right when actor mutation', () => {
-    //     cy.mount(<List />);
-    //     cy.get('[data-cy=light]').then((light) => {
-    //         // disable animation
-    //         light[0].style.setProperty('--spotlight-duration', '0s');
-    //         // trigger light
-    //         cy.get('span:last').click();
-    //         // mutation
-    //         cy.get('[data-cy=update]').click();
-    //         cy.get('[data-cy=actor]').then((actor) => {
-    //             isSameSize(actor, light);
-    //         });
-    //     });
-    // });
+    it('size right when actor mutation', () => {
+        cy.mount(<List />);
+        cy.get('[data-cy=light]').then((light) => {
+            // disable animation
+            light[0].style.setProperty('--spotlight-duration', '0s');
+            // trigger light
+            cy.get('span:last').click();
+            // mutation
+            cy.get('[data-cy=update]').click();
+            cy.get('[data-cy=actor]').then((actor) => {
+                isSameSize(actor, light);
+            });
+        });
+    });
 });

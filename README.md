@@ -83,19 +83,20 @@ import { stage, actor, style } from 'use-spotlight'
 
 ## Documentation
 
-### `useSpotlight({ throttleWait, enableBorderEdge })`
+### `useSpotlight({ throttleWait, stageBorderEdge })`
 
 #### Parameters
 
 - `throttleWait`: The number of milliseconds to throttle invocations to. `default: 0`
-- `enableBorderEdge`: With default setting, the 'light' will be positioned relative to the **padding edge** of the 'stage', which will cause an offset if 'stage' has **border**s. Set to `true`, if want to use the **border edge**, which will hurt performance but be more accurate on the position. `default: false`
+- `stageBorderEdge`: With default setting, the 'light' will be positioned relative to the **padding edge** of the 'stage', which will cause an offset if 'stage' has **border**s. Set to `true`, if want to use the **border edge**, which will hurt performance but be more accurate on the position. `default: false`
+- `stageMutation`: Enable watching 'stage' `childlist` `subtree` DOM mutation. `default: false`
 
 #### Returns
 
 - `stage`: The RefCallback which will be assigned to node as container.
 - `actor`: The RefCallback which will be assigned to node as target to follow.
 - `style`: A style object for the node 'light'.
-- `size`: provides the offset [x, y, width, height] between 'actor' and 'stage'.
+- `size`: Provides the offset `[x, y, width, height]` between 'actor' and 'stage'.
 
 ## License
 [MIT](LICENSE)

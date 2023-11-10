@@ -11,12 +11,14 @@ export type Rect = {
 
 export type SpotlightOptions = {
     throttleWait?: number;
-    enableBorderEdge?: boolean;
+    stageBorderEdge?: boolean;
+    stageMutation?: boolean;
 };
 
 export const defaultOptions: Required<SpotlightOptions> = {
     throttleWait: 0,
-    enableBorderEdge: false,
+    stageBorderEdge: false,
+    stageMutation: false,
 };
 
 export type Spotlight = {

@@ -24,7 +24,7 @@ describe(
         <List
             className="horizontal"
             style={{ border: '4px solid green' }}
-            spotlightOptions={{ enableBorderEdge: true }}
+            spotlightOptions={{ stageBorderEdge: true }}
         />
     ))
 );
@@ -34,7 +34,7 @@ describe(
         <List
             className="vertical"
             style={{ border: '4px solid green' }}
-            spotlightOptions={{ enableBorderEdge: true }}
+            spotlightOptions={{ stageBorderEdge: true }}
         />
     ))
 );
