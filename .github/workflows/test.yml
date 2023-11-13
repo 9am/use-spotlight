@@ -29,13 +29,12 @@ jobs:
       - name: Setup cypress cache
         uses: actions/cache@v3
         with:
-          path: ~/.cache/Cypress
+          path: ~/runner/.cache/Cypress
           key: ${{ runner.os }}-cypress-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-cypress-store-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          install-command: pnpm install --frozen-lockfile --ignore-scripts
           component: true
           browser: chrome
