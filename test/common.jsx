@@ -39,6 +39,7 @@ export const getCases =
             light.should('have.css', 'left', '0px');
             light.should('have.css', 'padding', '0px');
             light.should('have.css', 'margin', '0px');
+            light.should('have.css', 'overflow', 'hidden');
             light.should('have.css', 'pointer-events', 'none');
             light.should('have.css', 'z-index', '999');
         });

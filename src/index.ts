@@ -51,6 +51,7 @@ const getStyle = ([x, y, w, h]: Size) => ({
     zIndex: '999',
     padding: '0px',
     margin: '0px',
+    overflow: 'hidden',
 });
 
 export const useSpotlight = (options?: SpotlightOptions): Spotlight => {

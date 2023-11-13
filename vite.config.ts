@@ -8,7 +8,7 @@ import { name, version, description, author, homepage, license } from './package
 export default defineConfig({
     plugins: [
         react({ jsxRuntime: 'classic' }),
-        dts({ insertTypesEntry: true }),
+        dts({ rollupTypes: true }),
         banner((fileName: string) =>
             fileName.match(/\.js$/)
                 ? [
