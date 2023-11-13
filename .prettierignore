@@ -1,12 +1,14 @@
 **/node_modules
 **/dist
-**/vite.config.ts.*.mjs
 *.tgz
 *.log
 *.swp
 *.html
 *.json
 *.md
+*.yml
+*.yaml
 .*ignore
 .DS_Store
+.github
 coverage

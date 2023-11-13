@@ -1,5 +1,9 @@
 name: cypress-test
-on: push
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'test/**'
 jobs:
   basic-pnpm:
     runs-on: ubuntu-22.04

@@ -27,15 +27,24 @@
     "dev": "vite",
     "test:open": "cypress open",
     "test": "cypress run --component",
-    "build": "vite build"
+    "build": "vite build",
+    "prettier": "prettier --check .",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "prettier --write --ignore-unknown"
   },
   "devDependencies": {
     "@9am/tsconfig": "^1.0.0",
+    "@commitlint/cli": "^18.4.1",
+    "@commitlint/config-conventional": "^18.4.0",
     "@types/lodash.pick": "^4.4.8",
     "@types/lodash.throttle": "^4.1.9",
     "@types/react": "^18.2.35",
     "@vitejs/plugin-react": "^4.1.1",
     "cypress": "^13.4.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.1.0",
     "lodash.pick": "^4.4.0",
     "prettier": "^2.8.8",
     "random-words": "^2.0.0",
