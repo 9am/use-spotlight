@@ -28,7 +28,8 @@
     "test:open": "cypress open",
     "test": "cypress run --component",
     "build": "vite build",
-    "prettier": "prettier --check ."
+    "prettier": "prettier --check .",
+    "prepare": "cypress install"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "prettier --write --ignore-unknown"
