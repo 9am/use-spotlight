@@ -2,6 +2,7 @@ name: cypress-test
 on:
   push:
     paths:
+      - '.github/workflows/test.yml'
       - 'src/**'
       - 'test/**'
 jobs:
@@ -22,7 +23,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('examples/basic-pnpm/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
       - name: Cypress run
