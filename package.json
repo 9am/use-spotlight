@@ -29,7 +29,7 @@
     "test": "cypress run --component",
     "build": "vite build",
     "prettier": "prettier --check .",
-    "prepare": "cypress install"
+    "prepare": "husky install && cypress install"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "prettier --write --ignore-unknown"
