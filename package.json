@@ -1,7 +1,7 @@
 {
   "name": "use-spotlight",
-  "version": "1.0.9",
-  "description": "A react hook that generates a animated 'spotlight' follows the active target.",
+  "version": "1.0.10",
+  "description": "A react hook that generates an animated 'spotlight' follows the active target.",
   "keywords": [
     "react",
     "hooks",

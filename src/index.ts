@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, useInsertionEffect } from 'react';
 import throttle from 'lodash.throttle';
 import {
     DEFAULT_SIZE,
@@ -9,6 +9,8 @@ import {
     STAGE_CLASSNAME,
 } from './types';
 import type { Size, Rect, Style, SpotlightOptions, Spotlight } from './types';
+
+const useInsertion = useInsertionEffect ?? useEffect;
 
 const getStyleValueLength = (node: HTMLElement, attr: string): number => {
     try {
@@ -121,7 +123,7 @@ export const useSpotlight = (options?: SpotlightOptions): Spotlight => {
     }, [stageRect, actorRect, setSize, throttleWait, stageBorderEdge, stageMutation]);
 
     /* handle stage style */
-    useEffect(() => {
+    useInsertion(() => {
         const sNode = sRef.current;
         if (!sNode) {
             return () => {};

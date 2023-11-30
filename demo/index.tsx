@@ -67,7 +67,7 @@ export const List = ({ defaultActive = '', spotlightOptions = undefined, ...prop
 
 export const App = () => (
     <>
-        <List className="horizontal" />
+        <List className="horizontal" spotlightOptions={{ lightPseudo: '::before' }} />
         <List className="vertical" />
     </>
 );
