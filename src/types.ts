@@ -1,4 +1,4 @@
-import type { RefCallback } from 'react';
+import type { RefCallback, CSSProperties } from 'react';
 
 export type Size = [number, number, number, number];
 
@@ -27,16 +27,14 @@ export const DEFAULT_OPTIONS: Required<SpotlightOptions> = {
     lightPseudo: null,
 };
 
-export type Style = { [key: string]: string };
-
 export type Spotlight = {
     stage: RefCallback<any>;
     actor: RefCallback<any>;
-    style: Style;
+    style: CSSProperties;
     size: Size;
 };
 
-export const STYLE: Style = {
+export const STYLE: CSSProperties = {
     content: '""',
     display: 'block',
     boxSizing: 'border-box',
@@ -58,7 +56,7 @@ export const STYLE: Style = {
 
 export const STYLE_TEXT = Object.keys(STYLE).reduce((memo, key) => {
     const cssName = key.replace(/([A-Z])/, '-$1').toLowerCase();
-    const cssVal = STYLE[key];
+    const cssVal = STYLE[key as keyof CSSProperties];
     return `${memo}${cssName}:${cssVal};`;
 }, '');
 

@@ -65,30 +65,32 @@ npm install use-spotlight
 
 #### JSX
 
-```jsx
-import { useSpotlight } from 'use-spotlight'
+```diff
++import { useSpotlight } from 'use-spotlight'
 
-() => {
-    const [active, setActive] = useState(-1)
-    // init hook
-    const { stage, actor, style } = useSpotlight()
-    return (
-        // set ref for 'stage'
-        <ul ref={stage}>
-            {list.map(({ val }) => (
-                <li
-                    onClick={() => setActive(val)}
-                    // set ref for 'actor'
-                    ref={val === active ? actor : null}
-                >
-                    {val}
-                </li>
-            ))}
-            // set 'style' to the light
-            <i style={style} />
-        </ul>
-    )
-}
+ () => {
+     const [active, setActive] = useState(-1)
+     // init hook
++    const { stage, actor, style } = useSpotlight()
+     return (
+         // set ref for 'stage'
+         <ul
++            ref={stage}
+         >
+             {list.map(({ val }) => (
+                 <li
+                     onClick={() => setActive(val)}
+                     // set ref for 'actor'
++                    ref={val === active ? actor : null}
+                 >
+                     {val}
+                 </li>
+             ))}
+             // set 'style' to the light
++            <i style={style} />
+         </ul>
+     )
+ }
 ```
 
 ## Documentation
@@ -106,7 +108,7 @@ import { useSpotlight } from 'use-spotlight'
 
 - **`stage`**: The RefCallback which will be assigned to node as container.
 - **`actor`**: The RefCallback which will be assigned to node as target to follow.
-- **`style`**: A style object for the node 'light'.
+- **`style`**: The CSSProperties for the node 'light'.
 - **`size`**: The offset `[x, y, width, height]` between 'actor' and 'stage'.
 
 > [!IMPORTANT]

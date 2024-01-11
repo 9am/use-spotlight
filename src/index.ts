@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { useCallback, useEffect, useRef, useState, useInsertionEffect } from 'react';
 import throttle from 'lodash.throttle';
 import {
@@ -8,7 +9,7 @@ import {
     STYLE_TEXT,
     STAGE_CLASSNAME,
 } from './types';
-import type { Size, Rect, Style, SpotlightOptions, Spotlight } from './types';
+import type { Size, Rect, SpotlightOptions, Spotlight } from './types';
 
 const useInsertion = useInsertionEffect ?? useEffect;
 
@@ -34,12 +35,13 @@ const getScrollRect = (node: HTMLElement, stageBorderEdge: boolean): Rect => {
     };
 };
 
-const getVariables = ([x, y, w, h]: Size): Style => ({
-    '--spotlight-x': `${x}px`,
-    '--spotlight-y': `${y}px`,
-    '--spotlight-w': `${w}px`,
-    '--spotlight-h': `${h}px`,
-});
+const getVariables = ([x, y, w, h]: Size): CSSProperties =>
+    ({
+        '--spotlight-x': `${x}px`,
+        '--spotlight-y': `${y}px`,
+        '--spotlight-w': `${w}px`,
+        '--spotlight-h': `${h}px`,
+    } as CSSProperties);
 
 export const useSpotlight = (options?: SpotlightOptions): Spotlight => {
     const { throttleWait, stageBorderEdge, stageMutation, lightPseudo } = {
@@ -139,9 +141,10 @@ export const useSpotlight = (options?: SpotlightOptions): Spotlight => {
             sNode.classList.add(STAGE_CLASSNAME);
             // set css variables to 'stage'
             const variables = getVariables(size);
-            Object.keys(variables).forEach((key) =>
-                sNode.style.setProperty(key, variables[key]!)
-            );
+            Object.keys(variables).forEach((key) => {
+                const cssVal = variables[key as keyof CSSProperties];
+                sNode.style.setProperty(key, `${cssVal}`);
+            });
         }
         return () => {
             sNode.style.position = prev;
@@ -161,6 +164,6 @@ export const useSpotlight = (options?: SpotlightOptions): Spotlight => {
     };
 };
 
-export type { Size, Style, SpotlightOptions, Spotlight } from './types';
+export type { Size, SpotlightOptions, Spotlight } from './types';
 
 export default null;
